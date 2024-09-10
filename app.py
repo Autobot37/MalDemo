@@ -88,8 +88,8 @@ img = img.resize((224, 224))
 result = inference(img)
 predicted_label = result.item()
 
-st.write(f"True Label: {'Uninfected' if true_label == 0 else 'Infected'}")
-st.write(f"Predicted Label: {'Uninfected' if predicted_label == 0 else 'Infected'}")
+st.markdown(f"<h3 style='text-align: center;'>True Label: {'Uninfected' if true_label == 0 else 'Infected'}</h3>", unsafe_allow_html=True)
+st.markdown(f"<h3 style='text-align: center;'>Predicted Label: {'Uninfected' if predicted_label == 0 else 'Infected'}</h3>", unsafe_allow_html=True)
 
 col1, col2, col3 = st.columns(3)
 with col2:
