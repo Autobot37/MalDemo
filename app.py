@@ -61,6 +61,14 @@ def inference(img):
     with torch.no_grad():
         return torch.argmax(model(img))
 
+def get_true_label(filename):
+    if 'uninfected' in filename:
+        return 0  # Uninfected
+    elif 'infected' in filename:
+        return 1  # Infected
+    else:
+        return -1  # Unknown
+
 # File uploader
 img_file = st.file_uploader('Upload a file', type=['jpg', 'png'])
 
@@ -70,18 +78,23 @@ example_image = st.selectbox('Or select an example image', example_images)
 if img_file:
     st.write('File uploaded')
     img = Image.open(img_file)
+    true_label = get_true_label(img_file.name)
 else:
     st.write('Using example image')
     img = Image.open(example_image)
+    true_label = get_true_label(example_image)
 
 img = img.resize((224, 224))
 result = inference(img)
-st.write(result)
+predicted_label = result.item()
+
+st.write(f"True Label: {'Uninfected' if true_label == 0 else 'Infected'}")
+st.write(f"Predicted Label: {'Uninfected' if predicted_label == 0 else 'Infected'}")
 
 col1, col2, col3 = st.columns(3)
 with col2:
     st.image(img)
-    if result.item() == 0:
+    if predicted_label == 0:
         st.markdown("<h1 style='text-align: center; color: green;'>UnInfected</h1>", unsafe_allow_html=True)
     else:
         st.markdown("<h1 style='text-align: center; color: red;'>Infected</h1>", unsafe_allow_html=True)
