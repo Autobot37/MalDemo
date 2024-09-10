@@ -7,7 +7,7 @@ from torchvision import models, transforms
 
 st.title(':orange[Model Inference | Malaria Detection]') 
 
-example_images = ['uninfected3.png', 'infected.png', 'uninfected.png', 'uninfected2.png']
+example_images = ['uninfected3.png', 'uninfected.png', 'uninfected4.png', 'uninfected2.png','uninfected5.png','infected5.png','infected4.png','infected3.png','infected2.png','infected.png']
 
 transform = transforms.Compose([
     transforms.Resize((224, 224)),
